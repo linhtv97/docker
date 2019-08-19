@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - 4000:4000
+    env_file:
+      - .env
+    links:
+      - database
+    working_dir: /docker
+    volumes:
+      - .:/docker
+      - /docker/node_modules
+  database:
+    image: "mariadb"
+    environment:
+      - MYSQL_HOST=database
+      - MSYQL_DATABASE=docker
+      - MYSQL_USER=linh
+      - MYSQL_PASSWORD=1
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+    expose:
+      - '3306'
+    ports:
+      - '3307:3306'
